@@ -82,13 +82,15 @@ const Loading: React.FC<LoadingProps> = ({ onComplete }) => {
 
     const handler = () => triggerExit()
 
+    // Use touchend (not touchstart) — mobile browsers only grant audio
+    // autoplay permission on touchend and click, not on scroll or touchstart
     window.addEventListener('click', handler, { once: true })
-    window.addEventListener('touchstart', handler, { once: true })
+    window.addEventListener('touchend', handler, { once: true })
     window.addEventListener('wheel', handler, { once: true })
 
     return () => {
       window.removeEventListener('click', handler)
-      window.removeEventListener('touchstart', handler)
+      window.removeEventListener('touchend', handler)
       window.removeEventListener('wheel', handler)
     }
   }, [animationDone, triggerExit])
@@ -229,7 +231,7 @@ const Loading: React.FC<LoadingProps> = ({ onComplete }) => {
         <span
           className="font-body text-gold/50 text-xs tracking-[0.25em] uppercase"
         >
-          Scroll to enter
+          Tap to enter
         </span>
         <div className="flex flex-col items-center animate-bounce">
           <svg
