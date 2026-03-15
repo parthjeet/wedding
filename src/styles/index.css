@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+/* ─── Custom Theme ─── */
+@theme {
+  --color-bg-deep: #0A0A0F;
+  --color-bg-section: #0F1123;
+  --color-bg-card: #161830;
+  --color-gold: #C9A84C;
+  --color-gold-light: #E8D5A3;
+  --color-gold-bright: #F0D078;
+  --color-rose: #8B2252;
+  --color-champagne: #F5E6C8;
+  --color-cream: #E8E0D0;
+  --color-muted: #9B9485;
+  --color-haldi: #E8B931;
+  --color-mehendi: #2D6A4F;
+  --color-sangeet: #9B2335;
+  --color-pheras: #D4760A;
+  --color-reception: #C0B283;
+
+  --font-display: "Cinzel", serif;
+  --font-heading: "Cormorant Garamond", serif;
+  --font-body: "Outfit", sans-serif;
+  --font-script: "Tangerine", cursive;
+}
+
+/* ─── Base ─── */
+html {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-deep);
+  color: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* ─── Selection ─── */
+::selection {
+  background-color: rgba(201, 168, 76, 0.3);
+  color: var(--color-champagne);
+}
+
+/* ─── Scrollbar (Webkit) ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 76, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 168, 76, 0.5);
+}
+
+/* ─── Film Grain Texture ─── */
+.film-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+}
+
+/* ─── Golden Glow Utility ─── */
+.gold-glow {
+  text-shadow:
+    0 0 20px rgba(201, 168, 76, 0.4),
+    0 0 40px rgba(201, 168, 76, 0.2),
+    0 0 80px rgba(201, 168, 76, 0.1);
+}
+
+.gold-glow-strong {
+  text-shadow:
+    0 0 10px rgba(201, 168, 76, 0.6),
+    0 0 30px rgba(201, 168, 76, 0.4),
+    0 0 60px rgba(201, 168, 76, 0.2),
+    0 0 100px rgba(201, 168, 76, 0.1);
+}
+
+/* ─── SVG Drawing Base ─── */
+.svg-draw {
+  fill: none;
+  stroke: var(--color-gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ─── Custom Cursor (Desktop) ─── */
+@media (hover: hover) and (pointer: fine) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--color-gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;
+  mix-blend-mode: difference;
+  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+}
+
+.cursor-ring.hovering {
+  width: 56px;
+  height: 56px;
+  opacity: 0.4;
+}
+
+/* ─── Diya Flame ─── */
+@keyframes flicker {
+  0%, 100% { opacity: 1; transform: scaleY(1) scaleX(1); }
+  25% { opacity: 0.85; transform: scaleY(1.05) scaleX(0.95); }
+  50% { opacity: 0.95; transform: scaleY(0.98) scaleX(1.02); }
+  75% { opacity: 0.88; transform: scaleY(1.03) scaleX(0.97); }
+}
+
+.flame-flicker {
+  animation: flicker 2s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* ─── Equalizer Bars (Sangeet) ─── */
+@keyframes eq-bar {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+.eq-bar {
+  transform-origin: bottom;
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .film-grain {
+    display: none;
+  }
+}
+
+/* ─── Safe Area Insets ─── */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* ─── Section Transitions ─── */
+.section-glow {
+  position: relative;
+}
+
+.section-glow::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 4px;
+  background: radial-gradient(ellipse, rgba(201, 168, 76, 0.4) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ─── Typography Utilities ─── */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-script {
+  font-family: var(--font-script);
+}
+
+/* ─── WebView Banner ─── */
+.webview-banner {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
