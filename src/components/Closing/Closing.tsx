@@ -226,7 +226,7 @@ const Closing: React.FC = () => {
       {/* Footer */}
       <div className="absolute bottom-6 left-0 right-0 text-center">
         <p className="font-body text-muted/40 text-[10px] tracking-[0.2em] uppercase">
-          Made with love
+          Made with love by the groom
         </p>
       </div>
     </section>
