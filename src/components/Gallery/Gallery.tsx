@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react'
 import weddingData from '../../data/weddingData'
-import DecorativeDivider from '../svg/DecorativeDivider'
 import type { PhotoItem } from '../../data/weddingData'
 
 // ── Camera icon placeholder SVG ──
@@ -316,23 +315,6 @@ const Gallery: React.FC = () => {
       />
 
       <div className="relative z-10 max-w-6xl mx-auto">
-        {/* Section title */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        >
-          <h2
-            className="font-display text-gold gold-glow mb-6"
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
-          >
-            Captured Moments
-          </h2>
-          <DecorativeDivider className="w-48 md:w-64 mx-auto text-gold/40" />
-        </motion.div>
-
         {/* Responsive grid styles — mostly portrait images with one landscape */}
         <style>{`
           .gallery-grid {
