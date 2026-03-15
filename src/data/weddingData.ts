@@ -139,9 +139,8 @@ const weddingData: WeddingData = {
   ],
 
   photos: [
-    { id: 'photo-1', src: '/images/couple-bigben-embrace.jpg', alt: 'Parth & Anu at Big Ben', aspectRatio: 'portrait', gridArea: 'hero' },
-    { id: 'photo-2', src: '/images/couple-london-night.jpg', alt: 'London skyline at night', aspectRatio: 'landscape' },
-    { id: 'photo-3', src: '/images/couple-bigben-grass.jpg', alt: 'Parth & Anu on the grass at Big Ben', aspectRatio: 'portrait' },
+    { id: 'photo-1', src: '/images/couple-london-night.jpg', alt: 'London skyline at night', aspectRatio: 'landscape' },
+    { id: 'photo-2', src: '/images/couple-bigben-grass.jpg', alt: 'Parth & Anu on the grass at Big Ben', aspectRatio: 'portrait', gridArea: 'hero' },
     { id: 'photo-4', src: '/images/couple-market.jpg', alt: 'Parth & Anu at the market', aspectRatio: 'portrait' },
     { id: 'photo-5', src: '/images/couple-closeup.jpg', alt: 'Parth & Anu close-up', aspectRatio: 'portrait' },
     { id: 'photo-6', src: '/images/couple-garden.jpg', alt: 'Parth & Anu in the garden', aspectRatio: 'portrait' },
