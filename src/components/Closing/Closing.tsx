@@ -26,25 +26,6 @@ function PhoneIcon() {
 }
 
 // ── Email icon ──
-function EmailIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="text-gold/40"
-    >
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-      <polyline points="22,6 12,13 2,6" />
-    </svg>
-  )
-}
-
 // ── Fire confetti from both bottom corners ──
 function fireConfetti(): void {
   const colors = ['#C9A84C', '#E8D5A3', '#F5E6C8', '#8B2252']
@@ -200,13 +181,6 @@ const Closing: React.FC = () => {
           >
             <PhoneIcon />
             {closing.phone}
-          </a>
-          <a
-            href={`mailto:${closing.email}`}
-            className="inline-flex items-center gap-2 font-body text-muted text-base hover:text-gold transition-colors"
-          >
-            <EmailIcon />
-            {closing.email}
           </a>
         </motion.div>
 

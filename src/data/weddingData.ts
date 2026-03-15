@@ -59,7 +59,6 @@ export interface WeddingData {
     readonly message: string
     readonly family: string
     readonly phone: string
-    readonly email: string
   }
 }
 
@@ -180,8 +179,7 @@ const weddingData: WeddingData = {
   closing: {
     message: 'Your presence would be the greatest gift of all. We can\'t wait to celebrate this beautiful beginning with you.',
     family: 'With love, The Pandey Family',
-    phone: '+91 98765 43210',
-    email: 'parthandanu2026@email.com',
+    phone: '+91 9835113601',
   },
 } as const
 
