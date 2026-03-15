@@ -26,8 +26,8 @@ function CameraIcon() {
 
 // ── Aspect ratio map ──
 const ASPECT_RATIOS: Record<PhotoItem['aspectRatio'], string> = {
-  portrait: '3/4',
-  landscape: '4/3',
+  portrait: '2/3',
+  landscape: '16/9',
   square: '1/1',
 }
 
@@ -333,12 +333,15 @@ const Gallery: React.FC = () => {
           <DecorativeDivider className="w-48 md:w-64 mx-auto text-gold/40" />
         </motion.div>
 
-        {/* Responsive grid styles */}
+        {/* Responsive grid styles — mostly portrait images with one landscape */}
         <style>{`
           .gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 16px;
+          }
+          .gallery-grid .photo-landscape {
+            grid-column: span 2;
           }
           @media (min-width: 768px) {
             .gallery-grid {
@@ -347,23 +350,28 @@ const Gallery: React.FC = () => {
             .gallery-grid .photo-hero {
               grid-row: span 2;
             }
+            .gallery-grid .photo-landscape {
+              grid-column: span 2;
+            }
           }
         `}</style>
 
         {/* Photo grid */}
         <div className="gallery-grid">
-          {photos.map((photo, index) => (
-            <div
-              key={photo.id}
-              className={photo.gridArea === 'hero' ? 'photo-hero' : ''}
-            >
-              <PhotoCard
-                photo={photo}
-                index={index}
-                onClick={() => setSelectedPhoto(photo.id)}
-              />
-            </div>
-          ))}
+          {photos.map((photo, index) => {
+            const isHero = photo.gridArea === 'hero'
+            const isLandscape = photo.aspectRatio === 'landscape'
+            const className = isHero ? 'photo-hero' : isLandscape ? 'photo-landscape' : ''
+            return (
+              <div key={photo.id} className={className}>
+                <PhotoCard
+                  photo={photo}
+                  index={index}
+                  onClick={() => setSelectedPhoto(photo.id)}
+                />
+              </div>
+            )
+          })}
         </div>
       </div>
 

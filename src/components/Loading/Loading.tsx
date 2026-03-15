@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect, useCallback } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import Mandala from '../svg/Mandala'
@@ -59,6 +59,39 @@ const Loading: React.FC<LoadingProps> = ({ onComplete }) => {
   const mandalaRef = useRef<HTMLDivElement>(null)
   const counterRef = useRef<HTMLSpanElement>(null)
   const nameRef = useRef<HTMLParagraphElement>(null)
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null)
+  const [animationDone, setAnimationDone] = useState(false)
+  const exitTriggeredRef = useRef(false)
+
+  const triggerExit = useCallback(() => {
+    if (exitTriggeredRef.current || !containerRef.current) return
+    exitTriggeredRef.current = true
+
+    const container = containerRef.current
+    const exitTl = gsap.timeline({ onComplete })
+
+    exitTl.to(counterRef.current, { opacity: 0, duration: 0.2 })
+    exitTl.to(nameRef.current, { opacity: 0, duration: 0.2 }, '<')
+    exitTl.to(scrollIndicatorRef.current, { opacity: 0, duration: 0.2 }, '<')
+    exitTl.to(container, { y: '-100%', duration: 0.8, ease: 'power3.inOut' })
+  }, [onComplete])
+
+  // Listen for user interaction after animation completes
+  useEffect(() => {
+    if (!animationDone) return
+
+    const handler = () => triggerExit()
+
+    window.addEventListener('click', handler, { once: true })
+    window.addEventListener('touchstart', handler, { once: true })
+    window.addEventListener('wheel', handler, { once: true })
+
+    return () => {
+      window.removeEventListener('click', handler)
+      window.removeEventListener('touchstart', handler)
+      window.removeEventListener('wheel', handler)
+    }
+  }, [animationDone, triggerExit])
 
   useGSAP(
     () => {
@@ -68,9 +101,7 @@ const Loading: React.FC<LoadingProps> = ({ onComplete }) => {
 
       const ctx = gsap.context(() => {
         const tl = gsap.timeline({
-          onComplete: () => {
-            exitTl.play()
-          },
+          onComplete: () => setAnimationDone(true),
         })
 
         // Counter object for animating percentage text
@@ -152,30 +183,6 @@ const Loading: React.FC<LoadingProps> = ({ onComplete }) => {
           duration: 0.3,
           ease: 'power2.inOut',
         })
-
-        // Exit timeline — slides the loading overlay up
-        const exitTl = gsap.timeline({
-          paused: true,
-          onComplete: () => {
-            onComplete()
-          },
-        })
-
-        exitTl.to(counterRef.current, {
-          opacity: 0,
-          duration: 0.2,
-        })
-
-        exitTl.to(nameRef.current, {
-          opacity: 0,
-          duration: 0.2,
-        }, '<')
-
-        exitTl.to(container, {
-          y: '-100%',
-          duration: 0.8,
-          ease: 'power3.inOut',
-        })
       }, container)
 
       return () => ctx.revert()
@@ -212,6 +219,54 @@ const Loading: React.FC<LoadingProps> = ({ onComplete }) => {
       >
         Parth &amp; Anu
       </p>
+
+      {/* Scroll indicator — appears after animation completes */}
+      <div
+        ref={scrollIndicatorRef}
+        className="absolute bottom-12 flex flex-col items-center gap-3 transition-opacity duration-700"
+        style={{ opacity: animationDone ? 1 : 0 }}
+      >
+        <span
+          className="font-body text-gold/50 text-xs tracking-[0.25em] uppercase"
+        >
+          Scroll to enter
+        </span>
+        <div className="flex flex-col items-center animate-bounce">
+          <svg
+            width="20"
+            height="28"
+            viewBox="0 0 20 28"
+            fill="none"
+            className="text-gold/40"
+          >
+            {/* Mouse outline */}
+            <rect
+              x="1"
+              y="1"
+              width="18"
+              height="26"
+              rx="9"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            />
+            {/* Scroll wheel dot */}
+            <circle cx="10" cy="8" r="1.5" fill="currentColor">
+              <animate
+                attributeName="cy"
+                values="8;14;8"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="opacity"
+                values="1;0.3;1"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
+            </circle>
+          </svg>
+        </div>
+      </div>
     </div>
   )
 }

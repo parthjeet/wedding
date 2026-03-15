@@ -5,6 +5,7 @@ import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { useDeviceCapability } from './hooks/useDeviceCapability'
 import { useReducedMotion } from './hooks/useReducedMotion'
 import { useHasHover } from './hooks/useMediaQuery'
+import { useAudioPlayer } from './hooks/useAudioPlayer'
 
 import Loading from './components/Loading/Loading'
 import Hero from './components/Hero/Hero'
@@ -26,12 +27,14 @@ function App() {
   const tier = useDeviceCapability()
   const reducedMotion = useReducedMotion()
   const hasHover = useHasHover()
+  const { play, toggle, isPlaying } = useAudioPlayer()
 
   useSmoothScroll()
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false)
-  }, [])
+    play()
+  }, [play])
 
   // Refresh ScrollTrigger after loading completes so measurements are correct
   useEffect(() => {
@@ -49,12 +52,14 @@ function App() {
         {isLoading && <Loading onComplete={handleLoadingComplete} />}
       </AnimatePresence>
 
+      {/* Custom cursor — always available */}
+      {hasHover && <CustomCursor />}
+
       {/* Global UI */}
       {!isLoading && (
         <>
           <ScrollProgress />
-          {hasHover && <CustomCursor />}
-          <MusicToggle />
+          <MusicToggle isPlaying={isPlaying} onToggle={toggle} />
           <WebViewPrompt />
           {!reducedMotion && <FilmGrain />}
           {particleCount > 0 && !reducedMotion && (

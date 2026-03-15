@@ -140,14 +140,14 @@ const weddingData: WeddingData = {
   ],
 
   photos: [
-    { id: 'photo-1', src: '', alt: 'Couple photo 1', aspectRatio: 'portrait', gridArea: 'hero' },
-    { id: 'photo-2', src: '', alt: 'Couple photo 2', aspectRatio: 'landscape' },
-    { id: 'photo-3', src: '', alt: 'Couple photo 3', aspectRatio: 'square' },
-    { id: 'photo-4', src: '', alt: 'Couple photo 4', aspectRatio: 'portrait' },
-    { id: 'photo-5', src: '', alt: 'Couple photo 5', aspectRatio: 'landscape' },
-    { id: 'photo-6', src: '', alt: 'Couple photo 6', aspectRatio: 'square' },
-    { id: 'photo-7', src: '', alt: 'Couple photo 7', aspectRatio: 'landscape' },
-    { id: 'photo-8', src: '', alt: 'Couple photo 8', aspectRatio: 'portrait' },
+    { id: 'photo-1', src: '/images/couple-bigben-embrace.jpg', alt: 'Parth & Anu at Big Ben', aspectRatio: 'portrait', gridArea: 'hero' },
+    { id: 'photo-2', src: '/images/couple-london-night.jpg', alt: 'London skyline at night', aspectRatio: 'landscape' },
+    { id: 'photo-3', src: '/images/couple-bigben-grass.jpg', alt: 'Parth & Anu on the grass at Big Ben', aspectRatio: 'portrait' },
+    { id: 'photo-4', src: '/images/couple-market.jpg', alt: 'Parth & Anu at the market', aspectRatio: 'portrait' },
+    { id: 'photo-5', src: '/images/couple-closeup.jpg', alt: 'Parth & Anu close-up', aspectRatio: 'portrait' },
+    { id: 'photo-6', src: '/images/couple-garden.jpg', alt: 'Parth & Anu in the garden', aspectRatio: 'portrait' },
+    { id: 'photo-7', src: '/images/couple-town.jpg', alt: 'Parth & Anu in town', aspectRatio: 'portrait' },
+    { id: 'photo-8', src: '/images/couple-park.jpg', alt: 'Parth & Anu at the park', aspectRatio: 'portrait' },
   ],
 
   venues: [

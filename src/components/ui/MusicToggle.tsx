@@ -1,18 +1,11 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
-import { useAudioPlayer } from '../../hooks/useAudioPlayer'
+import { motion } from 'motion/react'
 
-export default function MusicToggle() {
-  const { isPlaying, toggle } = useAudioPlayer()
-  const [showTooltip, setShowTooltip] = useState(true)
+interface MusicToggleProps {
+  isPlaying: boolean
+  onToggle: () => void
+}
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowTooltip(false)
-    }, 4000)
-    return () => clearTimeout(timer)
-  }, [])
-
+export default function MusicToggle({ isPlaying, onToggle }: MusicToggleProps) {
   return (
     <div
       style={{
@@ -26,27 +19,8 @@ export default function MusicToggle() {
         gap: 8,
       }}
     >
-      <AnimatePresence>
-        {showTooltip && (
-          <motion.span
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.4 }}
-            style={{
-              fontSize: 12,
-              color: '#C9A84C',
-              whiteSpace: 'nowrap',
-              pointerEvents: 'none',
-            }}
-          >
-            Tap for music
-          </motion.span>
-        )}
-      </AnimatePresence>
-
       <button
-        onClick={toggle}
+        onClick={onToggle}
         aria-label={isPlaying ? 'Pause music' : 'Play music'}
         style={{
           width: 48,
